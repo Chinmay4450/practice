@@ -1,0 +1,40 @@
+body {background-color: rgb(0, 0, 0);}
+
+.heading{
+    color: rgb(255, 255, 255);
+}
+
+#gauge {
+    background-color: rgb(39, 37, 37) !important;
+  }
+#gauge1 {
+    background-color: rgb(39, 37, 37) !important;
+  } 
+#gauge2 {
+    background-color: rgb(39, 37, 37) !important;
+  }
+#gauge3 {
+    background-color: rgb(39, 37, 37) !important;
+  }     
+
+#piechart {
+    background-color: rgb(39, 37, 37) !important;
+  }   
+#piechart1 {
+    background-color: rgb(39, 37, 37) !important;
+  }   
+#piechart2 {
+    background-color: rgb(39, 37, 37) !important;
+  }     
+#piechart3 {
+    background-color: rgb(39, 37, 37) !important;
+  }     
+
+#barchart {
+    background-color: rgb(39, 37, 37) !important;
+  }    
+  
+  
+.main-svg {
+     background-color: transparent !important;
+  }
