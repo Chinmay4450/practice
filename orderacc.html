@@ -1,0 +1,122 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<body>
+
+<h2>An Unordered HTML List</h2>
+
+     
+  {% for ctx in mylst %}
+    <ul>
+    
+      {% for key, value in ctx.items %}
+      
+      <li>{{ key }} : {{ value }}</li>
+         
+      {% endfor %}
+   
+  
+    </ul>
+  {% endfor %}
+
+
+</body>
+</html>  {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+</head>
+<body>
+        {% for ctx in mylst %}
+           {% for k,v in ctx.items %}
+           {% if k == "username" %}             
+            Dear : {{ v }} <br>
+            {% endif %}
+            {% if k == "order_no" %}  
+              We have received your order #{{ v }}, you can find your purchase
+              information below: 
+           {% endif %}  
+           {% endfor %}
+        {% endfor %}
+
+
+<table id="customers">
+  <tr>
+    <th>Product Code</th>
+    <th>Product Name</th>
+    <th>Size</th>
+    <th>Unit</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Netsum</th>
+    <th>Discount</th>
+    <th>After Discount</th>
+  </tr>
+   {% for ctx in mylst %}
+   <tr>
+        <td>{{ctx.product_id}}</td>
+        <td>{{ctx.productname}}</td>
+        <td>{{ctx.productSizename}}</td>
+        <td>{{ctx.unit}}</td>
+        <td>{{ctx.price}}</td>
+        <td>{{ctx.quantity}}</td>
+        <td>{{ctx.netsum}}</td>
+        <td>{{ctx.discount}}</td>
+        <td>{{ctx.afterdiscount}}</td>
+  {% endfor %}     
+   </tr>
+   {% for ctx in mylst %}
+   {% if forloop.first %}
+   <tfoot>
+    <tr> 
+      <th style="background-color: #f7a103;" colspan="8">Total :</th>
+      <td>{{ctx.totalprice}} KWD</td>
+    </tr>
+    {% endif %}
+    {% endfor %}   
+   </tfoot>
+
+
+   
+ </table>
+ <br> <br>
+        {% for ctx in mylst %}
+           {% if forloop.first %}
+
+             Payment method: CASH <br>
+
+            please wait for the confirmation email for the order
+             
+           {% endif %}  
+        {% endfor %}
+
+        <br>
+        For more assistance please contact our support team:
+        <a href='mailto:online@jamaliunited.com'>online@jamaliunited.com</a>.<br> <br>
+        Whatsapp : +965 65649521
+</body>
+</html>
