@@ -1,88 +1,37 @@
-import requests
+import json
 import pandas as pd
 
+# Load JSON data
+with open("your_file.json", "r") as file:
+    data = json.load(file)
 
-# API details (replace placeholders with actual values)
-COMMIT_API_URL = "https://api.example.com/commits"
-PULL_REQUEST_API_URL = "https://api.example.com/pull-requests"
-API_TOKEN = "your_api_token"
+# Extract issues from Item1
+rows = []
+for team_group, group_data in data.items():  # Loop through teams like "Amigos", "Hustle and Flow"
+    for entry in group_data:  # Each group can have multiple entries
+        item1 = entry.get("Item1")  # Focus only on Item1
+        if item1 is None:  # Skip if Item1 is null
+            continue
+        for team_name, team_data in item1.items():  # Iterate over teams in Item1
+            if team_data is None:  # Skip if team data is null
+                continue
+            try:
+                issues = team_data.get("issues", [])  # Extract issues
+                for issue in issues:
+                    rows.append({
+                        "Team": team_name,
+                        "Group": team_group,  # e.g., "Amigos" or "Hustle and Flow"
+                        "Issue ID": issue.get("id", "N/A"),
+                        "Description": issue.get("description", "No description available")
+                    })
+            except AttributeError:
+                # Handle invalid data format
+                print(f"Skipping invalid team data for {team_name} in Item1")
+                continue
 
-# Headers for API requests
-HEADERS = {
-    "Authorization": f"Bearer {API_TOKEN}",
-    "Content-Type": "application/json"
-}
+# Convert to DataFrame
+df = pd.DataFrame(rows)
 
-# Function to fetch commits by author
-def fetch_commits(author):
-    try:
-        response = requests.get(
-            COMMIT_API_URL,
-            headers=HEADERS,
-            params={"author": author},
-            timeout=10  # Set timeout to prevent hanging requests
-        )
-        response.raise_for_status()  # Raise exception for HTTP errors
-        return response.json()  # Parse JSON if successful
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching commits for {author}: {e}")
-        return []  # Return an empty list if there's an error
-
-# Function to check if a commit is linked to a pull request
-def check_pull_request(commit_id):
-    try:
-        response = requests.get(
-            f"{PULL_REQUEST_API_URL}/{commit_id}",
-            headers=HEADERS,
-            timeout=10  # Set timeout to prevent hanging requests
-        )
-        response.raise_for_status()  # Raise exception for HTTP errors
-        return response.json()  # Parse JSON if successful
-    except requests.exceptions.RequestException as e:
-        print(f"Error checking pull request for commit ID {commit_id}: {e}")
-        return None  # Return None if there's an error
-
-# Flatten data for CSV and fetch API data
-csv_data = []
-
-for team in teams_data:
-    team_name = team.get("TeamName", "Unknown Team")  # Handle missing team name
-    for member in team.get("Members", []):  # Handle missing members list
-        # Fetch commits for the member
-        commits = fetch_commits(member)
-        if commits:
-            for commit in commits:
-                commit_id = commit.get("id", "None")
-                message = commit.get("message", "No message provided")
-                pull_request = check_pull_request(commit_id)
-                pull_request_id = pull_request.get("id") if pull_request else "None"
-                pull_request_status = pull_request.get("status") if pull_request else "None"
-                
-                # Append commit details
-                csv_data.append({
-                    "Team Name": team_name,
-                    "Author": member,
-                    "Commit ID": commit_id,
-                    "Message": message,
-                    "Pull Request ID": pull_request_id,
-                    "Pull Request Status": pull_request_status
-                })
-        else:
-            # If no commits found
-            csv_data.append({
-                "Team Name": team_name,
-                "Author": member,
-                "Commit ID": "None",
-                "Message": "No commits found",
-                "Pull Request ID": "None",
-                "Pull Request Status": "None"
-            })
-
-# Convert the list of dictionaries to a pandas DataFrame
-df = pd.DataFrame(csv_data)
-
-# Save the DataFrame to a CSV file
-csv_file_path = "team_commits_with_pandas.csv"
-df.to_csv(csv_file_path, index=False)
-
-print(f"CSV file created successfully at: {csv_file_path}")
+# Display or save as CSV
+print(df)
+df.to_csv("item1_issues_output.csv", index=False)
