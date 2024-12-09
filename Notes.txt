@@ -1,27 +1,31 @@
-Severity Facet:
+severity: Indicates the level of impact or seriousness of the issue. Common levels are:
 
-Grouping or filtering issues based on their severity levels (e.g., BLOCKER, CRITICAL, MAJOR, MINOR, INFO).
-Type Facet:
+INFO: Informational messages, often low priority.
+MINOR/MAJOR: Problems that might need attention but aren’t critical.
+CRITICAL/BLOCKER: Severe issues that require immediate attention.
+status: The current status of the issue. Typical statuses include:
 
-Categorizing issues by type, such as:
-BUG: Errors in the logic of the code.
-VULNERABILITY: Security-related issues.
-CODE_SMELL: Maintainability or design-related problems.
-Status Facet:
+OPEN: The issue is still unresolved.
+RESOLVED: The issue has been fixed.
+CLOSED: The issue has been permanently addressed.
+message: A brief description of the issue or rule violation. This explains the nature of the problem, such as missing best practices or potential bugs.
 
-Filtering issues by their current status (e.g., OPEN, CONFIRMED, RESOLVED, CLOSED).
-Assignee Facet:
+assignee: The person or team assigned to resolve the issue. This may display usernames or team identifiers.
 
-Grouping issues based on who they are assigned to, useful for tracking workload or responsibility.
-Tags Facet:
+author: The user or entity that introduced the issue, often based on the last commit or code changes.
 
-Filtering issues by tags or labels assigned to them, which can represent specific attributes like "security," "performance," or "testing."
-Rule Facet:
+creationDate: The date and time when the issue was first detected by SonarQube.
 
-Grouping or filtering issues by the specific SonarQube rules they violate, helping to identify recurring rule violations.
-Component Facet:
+updateDate: The most recent date and time when the issue was updated or modified, either automatically by SonarQube or manually by a user.
 
-Categorizing issues based on the components or modules of the codebase where the issue resides.
-Language Facet:
+type: The category of the issue. Common types include:
 
-Grouping issues based on the programming language of the analyzed code (e.g., Java, Python, JavaScript).
+BUG: Errors in the code that could cause incorrect functionality.
+CODE_SMELL: Maintainability issues or bad practices that should be improved.
+VULNERABILITY: Security risks in the code.
+scope: Indicates where the issue is located or applicable within the codebase, such as MAIN (main branch) or TEST (test code).
+
+quickFixAvailable: Specifies whether SonarQube has a suggested quick fix for the issue. Values:
+
+TRUE: A quick fix is available.
+FALSE: No quick fix is provided.
