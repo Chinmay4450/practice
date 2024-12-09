@@ -1,0 +1,27 @@
+Severity Facet:
+
+Grouping or filtering issues based on their severity levels (e.g., BLOCKER, CRITICAL, MAJOR, MINOR, INFO).
+Type Facet:
+
+Categorizing issues by type, such as:
+BUG: Errors in the logic of the code.
+VULNERABILITY: Security-related issues.
+CODE_SMELL: Maintainability or design-related problems.
+Status Facet:
+
+Filtering issues by their current status (e.g., OPEN, CONFIRMED, RESOLVED, CLOSED).
+Assignee Facet:
+
+Grouping issues based on who they are assigned to, useful for tracking workload or responsibility.
+Tags Facet:
+
+Filtering issues by tags or labels assigned to them, which can represent specific attributes like "security," "performance," or "testing."
+Rule Facet:
+
+Grouping or filtering issues by the specific SonarQube rules they violate, helping to identify recurring rule violations.
+Component Facet:
+
+Categorizing issues based on the components or modules of the codebase where the issue resides.
+Language Facet:
+
+Grouping issues based on the programming language of the analyzed code (e.g., Java, Python, JavaScript).
